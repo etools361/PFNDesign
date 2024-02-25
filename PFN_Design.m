@@ -5,17 +5,17 @@
 % All types of networks
 %--------------------------------------------------------------------------
 delta   = 1;
-epsilon = 0.125;
+epsilon = 0.08;
+n       = 13;
 t = linspace(-1, 1, 1000);
 syms x yy;
-y = funSquare2(t, delta, epsilon);
-n = 9;
-N = (n+1)/2;
-yf = 0;
+y   = funSquare2(t, delta, epsilon);
+N   = (n+1)/2;
+yf  = 0;
 yf2 = 0;
-x0 = t/epsilon;
-yy = 0;
-a = delta/epsilon;
+x0  = t/epsilon;
+yy  = 0;
+a   = delta/epsilon;
 fprintf('-----------Type C------------\n');
 % F1 = [];
 % A1 = [];
@@ -24,7 +24,7 @@ for ii=1:2:n
     yy = 1/(x/(an*ii)+ii/(x*an))+yy;
 %     F1(length(F1)+1) = ii;
 %     A1(length(A1)+1) = 1/an;
-    fprintf('C_%d:%0.5f;\tL_%d:%0.5f;\n', ii, an/ii, ii, 1/(an*ii));
+    fprintf('C_%d:%0.5f;\tL_%d:%0.5f;\n', (ii+1)/2, an/ii, (ii+1)/2, 1/(an*ii));
     yf = yf + an.*sin(ii*pi*x0/a);
 %     yf2 = yf2 + 4/(ii*pi)*sin(ii*pi*x0/a);
 end
@@ -45,18 +45,18 @@ for ii=1:m_s3
     cd = vpa(coeffs(d, 'all'));
     if length(cn)==1&&length(cd)==2
         C0 = cd(1)/cn(1);
-        fprintf('C_%d=%0.6fF\n', ii, C0);
+        fprintf('C_1=%0.6fF\n', C0);
     elseif length(cn)==2&&length(cd)==1
         % L
         L0 = cn(1)/cd(1);
-        fprintf('L_%d=%0.6fH\n', ii, L0);
+        fprintf('L_1=%0.6fH\n', L0);
     elseif length(cn)==2&&length(cd)==3
         L = cn(1)/cd(3);
         C = cd(1)/cd(3)/L;
         LL(length(LL)+1) = L;
         CC(length(CC)+1) = C;
         A2(length(A2)+1) = sqrt(L/C);
-        fprintf('C_%d:%0.5f;\tL_%d:%0.5f;\n', ii, C, ii, L);
+        fprintf('C_%d:%0.5f;\tL_%d:%0.5f;\n', length(CC)+1, C, length(LL)+1, L);
     end
 end
 % for ii=1:length(F1)
@@ -118,7 +118,7 @@ for ii=1:N-1
     Cn(ii) = C0;
     ytt = 1/(1/(yt-Ln1(ii)*x)-1/(1/(x*C0)+x*Ln(ii)));
     s2 = partfrac(ytt,x,'FactorMode', 'real');
-    [yt] = funRmPartfrac(s2, 1e-6);
+    [yt] = funRmPartfrac(s2, 1e-5);
 end
 [nn, d] = numden(yt);
 co = coeffs(nn, 'all');
@@ -132,7 +132,7 @@ for ii=1:N
     if ii<N
         fprintf('C_%d:%s F;\tL1_%d:%s H\tL_%d:%s H;\n', ii, Data2Suffix((Cn(ii)),'0.3'), ii, Data2Suffix((Ln1(ii)),'0.3'), ii, Data2Suffix((Ln(ii)),'0.3'));
     else
-        fprintf('C_%d:%s F;\tL1_%d:%s H\n', ii, Data2Suffix((Cn(ii)),'0.3'), ii, Data2Suffix((Ln1(ii)),'0.3'));
+        fprintf('C_%d:%s F;\tL1_%d+L_%d:%s H\n', ii, Data2Suffix((Cn(ii)),'0.3'), ii, ii, Data2Suffix((Ln1(ii)),'0.3'));
     end
 end
 fprintf('----------Type E-------------\n');
