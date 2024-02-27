@@ -5,8 +5,8 @@
 % All types of networks
 %--------------------------------------------------------------------------
 delta   = 1;
-epsilon = 0.08;
-n       = 13;
+epsilon = 0.13;
+n       = 9;
 t = linspace(-1, 1, 1000);
 syms x yy;
 y   = funSquare2(t, delta, epsilon);
@@ -73,7 +73,7 @@ end
 % end
 %---------------------------------------------------------
 fprintf('-----------Testing------------\n');
-delta2 = 10e-9;
+delta2 = 100e-9;
 R = 50;
 fprintf('Delta=%s s\n', Data2Suffix(delta2,'0.3'));
 fprintf('R=%s Ohm\n', Data2Suffix(R,'0.3'));
