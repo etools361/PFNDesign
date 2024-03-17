@@ -46,7 +46,6 @@ PFN Type F:\
 
 
 ## 参考
-
 <font size=2>[1] :  Ernst A. Guillemin, US2,461,321, PRODUCTION OF ELECTRIC PULSES, 1943.\
 [2] : [维基百科](https://en.wikipedia.org/wiki/Pulse-forming_network) \
 [3] : [github Matlab计算代码](https://github.com/etools361/PFNDesign) \
